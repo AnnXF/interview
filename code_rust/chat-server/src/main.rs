@@ -6,8 +6,12 @@ use tokio::{
 };
 use tokio_util::sync::CancellationToken;
 
+// client test: nc localhost 8888
 #[tokio::main]
 async fn main() -> io::Result<()> {
+    let subscriber = tracing_subscriber::FmtSubscriber::new();
+    tracing::subscriber::set_global_default(subscriber).unwrap();
+
     let listener = TcpListener::bind("127.0.0.1:8888").await?;
     let (tx, _) = broadcast::channel(10);
 
@@ -17,11 +21,11 @@ async fn main() -> io::Result<()> {
     tokio::spawn(async move {
         match signal::ctrl_c().await {
             Ok(()) => {
-                println!(" shutdown task!!!");
+                tracing::warn!(" shutdown task!!!");
                 cancel_token.cancel();
             }
             Err(err) => {
-                println!(" err {err:#?} ");
+                tracing::error!(" err {err:#?} ");
             }
         }
     });
@@ -38,7 +42,7 @@ async fn main() -> io::Result<()> {
             let (stream_reader, mut stream_writer) = socket.split();
             let mut messsage = String::new();
             let mut reader = BufReader::new(stream_reader);
-            println!(" new connection {addr:#?}");
+            tracing::info!(" new connection {addr:#?}");
             loop {
                 tokio::select! {
                     result = reader.read_line(&mut messsage) => {
@@ -58,7 +62,7 @@ async fn main() -> io::Result<()> {
                         }
                     }
                     _ = token.cancelled() =>{
-                        println!("cleaning up!!!");
+                        tracing::info!("cleaning up!!!");
                         return
                     }
                 }
