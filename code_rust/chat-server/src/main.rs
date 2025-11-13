@@ -1,21 +1,44 @@
 use tokio::{
     io::{self, AsyncBufReadExt, AsyncWriteExt, BufReader},
     net::TcpListener,
+    signal,
     sync::broadcast,
 };
+use tokio_util::sync::CancellationToken;
 
 #[tokio::main]
 async fn main() -> io::Result<()> {
     let listener = TcpListener::bind("127.0.0.1:8888").await?;
     let (tx, _) = broadcast::channel(10);
+
+    let token = CancellationToken::new();
+    let cancel_token = token.clone();
+
+    tokio::spawn(async move {
+        match signal::ctrl_c().await {
+            Ok(()) => {
+                println!(" shutdown task!!!");
+                cancel_token.cancel();
+            }
+            Err(err) => {
+                println!(" err {err:#?} ");
+            }
+        }
+    });
+
     loop {
         let (mut socket, addr) = listener.accept().await.unwrap();
+
         let tx = tx.clone();
         let mut rx = tx.subscribe();
+
+        let token = token.clone();
+
         tokio::spawn(async move {
             let (stream_reader, mut stream_writer) = socket.split();
             let mut messsage = String::new();
             let mut reader = BufReader::new(stream_reader);
+            println!(" new connection {addr:#?}");
             loop {
                 tokio::select! {
                     result = reader.read_line(&mut messsage) => {
@@ -33,6 +56,10 @@ async fn main() -> io::Result<()> {
                                 .await
                                 .unwrap();
                         }
+                    }
+                    _ = token.cancelled() =>{
+                        println!("cleaning up!!!");
+                        return
                     }
                 }
             }
