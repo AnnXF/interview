@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            background-color: #DED2B0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 100px;
+            grid-auto-rows: 80px;
+
+            /* 对齐方向 */
+            /* justify-items: end; */
+            /* align-items: center; */
+            /* place-items: center center; */
+
+        }
+
+        .product {
+            color: #000;
+            /* 对齐方向 */
+            justify-self: end;
+            /* align-self: end; */
+            /* place-self: center end; */
+        }
+
+        .stock {
+            color: #555;
+            justify-self: start;
+            /* align-self: start; */
+            /* place-self: center start; */
+        }
+
+        .item {
+            /* background-color: #ccc; */
+            padding: 2px;
+            /* width: 150px;
+            
+            text-align: center; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 子项放置 -->
+    <div class="container">
+        <div class="item product">product</div>
+        <div class="item stock">stock</div>
+        <div class="item product">product1</div>
+        <div class="item stock">1</div>
+        <div class="item product">product2</div>
+        <div class="item stock">2</div>
+        <div class="item product">product3</div>
+        <div class="item stock">3</div>
+        <div class="item product">product4</div>
+        <div class="item stock">4</div>
+        <div class="item product">product5</div>
+        <div class="item stock">5</div>
+        <div class="item product">product6</div>
+        <div class="item stock">6</div>
+        <div class="item product">product7</div>
+        <div class="item stock">7</div>
+        <div class="item product">product8</div>
+        <div class="item stock">8</div>
+        <div class="item product">product999999999</div>
+        <div class="item stock">9</div>
+        <div class="item product">product10</div>
+        <div class="item stock">10</div>
+
+    </div>
+
+</body>
+
+</html>

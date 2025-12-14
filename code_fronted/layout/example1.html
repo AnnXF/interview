@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: 100px 1fr;
+            grid-template-rows: 100px 100px 1fr;
+            height: 90vh;
+
+            /* 命名网格布局 */
+            grid-template-areas:
+                "header header"
+                "aside tab"
+                "aside main"
+            ;
+            /* 速写属性 */
+            /* grid-template:
+                "header header" 50px
+                "aside tab" 50px 1fr
+                "aside main" 50px 1fr; */
+        }
+
+        .item {
+            padding: 20px;
+            background-color: #ccc;
+            text-align: center;
+        }
+
+        .main {
+            /* 命名网格布局 */
+            grid-area: main;
+            /* 网格线布局 */
+            grid-row-start: 3;
+            grid-row-end: 4;
+            grid-column-start: 2;
+            grid-column-end: 3;
+            grid-row: 3/4;
+            grid-column: 2/3;
+            grid-area: 3/2/4/3;
+        }
+
+        .header {
+            grid-area: header;
+        }
+
+        .aside {
+            grid-area: aside;
+        }
+
+        .tab {
+            grid-area: tab;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 子项放置 -->
+    <div class="container">
+        <!-- 先放main seo的时候先展示 -->
+        <div class="item main">main</div>
+        <div class="item header">header</div>
+        <div class="item aside">aside</div>
+        <div class="item tab">tab</div>
+        <!-- <div class="item footer">footer</div> -->
+    </div>
+
+</body>
+
+</html>

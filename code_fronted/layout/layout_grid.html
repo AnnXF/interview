@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: grid;
+
+            /* 
+            fragment fr 比例
+            grid-template-columns: 30% 30% 40%; 
+            */
+            /* 列 */
+            grid-template-columns: 100px 100px 100px;
+            /* 行 */
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+            /* 其中auto-fill 会自动填充列 响应式布局 */
+
+            /* 位置 */
+            /* 水平 */
+            justify-content: center;
+            /* 垂直 */
+            align-content: center;
+
+            /* 间距 */
+            /* row-gap: 10px;
+            column-gap: 10px; */
+            gap: 10px;
+
+            /* 隐式网格布局行高 */
+            grid-auto-rows: minmax(80px, auto);
+            grid-auto-columns: 100px;
+        }
+
+        .item {
+            padding: 20px;
+            background-color: #ccc;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+    </div>
+
+</body>
+
+</html>
