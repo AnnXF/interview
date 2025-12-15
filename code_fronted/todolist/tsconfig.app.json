@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    /* 模块解析选项 */
+    "baseUrl": "./src", // <--- 【关键配置 1】设置解析非相对模块名的基准目录
+    "paths": { // <--- 【关键配置 2】定义路径映射关系
+      "@/*": [
+        "*"
+      ] // 意味着 import '@/{path}' 会去 './src/{path}' 中查找
+      // 如果想让 @/ 指向项目根目录，可以配置成：
+      // "@/types/*": ["src/types/*"],
+      // 但配置 "baseUrl": "./src" 和 "@/": ["*"] 是最简洁和常见的做法。
+    },
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "types": [
+      "vite/client"
+    ],
+    "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": [
+    "src"
+  ]
+}
